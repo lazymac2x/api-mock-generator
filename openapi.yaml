@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: api-mock-generator
+  version: 1.0.0
+  description: >
+    Generate mock API servers instantly from OpenAPI specs or natural language descriptions.
+    MCP-enabled tool server.
+  contact:
+    name: lazymac
+  license:
+    name: MIT
+
+servers:
+  - url: https://api-mock-generator.example.com
+    description: Production
+  - url: http://localhost:3000
+    description: Local development
+
+paths:
+  /health:
+    get:
+      operationId: healthCheck
+      summary: Health check
+      tags: [system]
+      responses:
+        '200':
+          description: Server is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  service:
+                    type: string
+                  version:
+                    type: string
+                  tools:
+                    type: array
+                    items:
+                      type: string
+                  uptime:
+                    type: number
+
+  /mcp:
+    post:
+      operationId: mcpHandler
+      summary: MCP JSON-RPC 2.0 endpoint
+      tags: [mcp]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+      responses:
+        '200':
+          description: JSON-RPC response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+
+components:
+  schemas:
+    JsonRpcRequest:
+      type: object
+      required: [jsonrpc, id, method]
+      properties:
+        jsonrpc:
+          type: string
+          enum: ['2.0']
+        id:
+          oneOf:
+            - type: string
+            - type: number
+        method:
+          type: string
+          enum:
+            - initialize
+            - notifications/initialized
+            - tools/list
+            - tools/call
+        params:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Tool name for tools/call
+            arguments:
+              type: object
+              description: Tool arguments for tools/call
+
+    JsonRpcResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+        id:
+          oneOf:
+            - type: string
+            - type: number
+        result:
+          type: object
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string

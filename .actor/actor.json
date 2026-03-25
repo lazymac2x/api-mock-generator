@@ -1,0 +1,34 @@
+{
+  "actorSpecification": 1,
+  "name": "api-mock-generator",
+  "title": "API Mock Generator",
+  "description": "Generate mock API servers instantly from OpenAPI specs or natural language descriptions. MCP-enabled.",
+  "version": "1.0.0",
+  "dockerfile": "../Dockerfile",
+  "input": {
+    "schemaVersion": 1,
+    "title": "Input",
+    "type": "object",
+    "properties": {
+      "spec": {
+        "title": "OpenAPI Spec or Description",
+        "type": "string",
+        "description": "OpenAPI spec (YAML/JSON) or natural language description like 'todo app with users, todos, auth'"
+      },
+      "mode": {
+        "title": "Mode",
+        "type": "string",
+        "enum": ["openapi", "description"],
+        "default": "description",
+        "description": "Input mode"
+      },
+      "tool": {
+        "title": "Tool",
+        "type": "string",
+        "enum": ["mock_from_openapi", "mock_from_description", "generate_types", "generate_client", "mock_config"],
+        "default": "mock_from_description",
+        "description": "Which tool to run"
+      }
+    }
+  }
+}

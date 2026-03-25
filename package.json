@@ -1,0 +1,32 @@
+{
+  "name": "api-mock-generator",
+  "version": "1.0.0",
+  "description": "Generate mock API servers instantly from OpenAPI specs or natural language descriptions. MCP-enabled.",
+  "main": "src/server.js",
+  "bin": {
+    "api-mock-generator": "./src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test/run.js"
+  },
+  "keywords": [
+    "mock",
+    "api",
+    "openapi",
+    "swagger",
+    "mcp",
+    "fake-data",
+    "mock-server",
+    "typescript",
+    "sdk",
+    "testing"
+  ],
+  "author": "lazymac",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "js-yaml": "^4.1.0"
+  }
+}
