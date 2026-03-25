@@ -1,5 +1,5 @@
 {
-  "name": "api-mock-generator",
+  "name": "@lazymac/api-mock-generator",
   "version": "1.0.0",
   "description": "Generate mock API servers instantly from OpenAPI specs or natural language descriptions. MCP-enabled.",
   "main": "src/server.js",
